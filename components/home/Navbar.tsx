@@ -155,7 +155,7 @@ const Navbar = () => {
           )}
           {showInstallButton && (
             <button
-              className="mt-4 w-full text-center bg-orange-2 text-white py-2 rounded"
+              className="mt-4 w-full text-center bg-orange-2 text-white py-2 rounded hidden"
               onClick={handleInstallClick}
             >
               Install App

@@ -5,15 +5,27 @@ import Link from "next/link";
 const AdminDashboard = () => {
   return (
     <div className="p-5 font-poppins">
-      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-      <div className="grid grid-cols-2 gap-4 mt-5">
+      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Products */}
         <Link href="/admin/meals">
-          <div className="border p-4 text-center cursor-pointer">Manage Meals</div>
+          <div className="border p-4 text-center cursor-pointer hover:shadow-lg transition">
+            Manage Products
+          </div>
         </Link>
+        {/* Orders */}
         <Link href="/admin/orders">
-          <div className="border p-4 text-center cursor-pointer">{"Today's"} Orders</div>
+          <div className="border p-4 text-center cursor-pointer hover:shadow-lg transition">
+            {"Today's"} Orders
+          </div>
         </Link>
-        
+        {/* Contact Inquiries (Optional) */}
+        <Link href="/admin/contacts">
+          <div className="border p-4 text-center cursor-pointer hover:shadow-lg transition">
+            Contact Form Submissions
+          </div>
+        </Link>
       </div>
     </div>
   );
