@@ -35,7 +35,7 @@ const ProductsSection = () => {
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-4 font-poppins">Our Hives</h2>
         <p className="text-gray-600 mb-12 text-lg">
-          Explore our premium selection of beekeeping equipment and pure honey.
+          Explore our premium selection of beekeeping equipment.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
