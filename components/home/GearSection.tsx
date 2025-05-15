@@ -21,13 +21,13 @@ const gearItems = [
     description: "A multipurpose tool used to pry apart hive boxes, scrape wax, and lift frames. Essential for any beekeeper.",
   },
   {
-    name: "Langstroth Hive",
-    image: "/images/smoker.jpg",
+    name: "Hive",
+    image: "/images/beehive2.jpeg",
     description: "A commonly used beehive structure consisting of stacked boxes that make honey harvesting and hive management easy.",
   },
   {
     name: "Honey Extractor",
-    image: "/images/smoker.jpg",
+    image: "/images/extract.jpg",
     description: "A mechanical device that spins honey out of the combs without destroying the comb, making harvesting efficient and clean.",
   },
   {
