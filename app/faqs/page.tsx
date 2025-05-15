@@ -5,34 +5,46 @@ import React from "react";
 const FAQs = () => {
   const faqData = [
     {
-      question: "How do I place an order?",
+      question: "What types of beehives do you sell?",
       answer:
-        "To place an order, browse the menu, select your meal, and proceed to checkout. Payments are completed via M-Pesa or other digital payment options.",
+        "We sell Langstroth and Top Bar hives — both ideal for small-scale and commercial beekeeping. Each hive is handcrafted for durability and maximum honey production.",
     },
     {
-      question: "Can I cancel my order?",
+      question: "Do you offer guidance for beginners?",
       answer:
-        "Once an order is confirmed, cancellations may not be possible. However, if an issue arises, contact support immediately.",
+        "Yes! We provide a free starter guide with every hive purchase. You can also book a consultation with our experts to get started in beekeeping.",
     },
     {
-      question: "What if my payment fails?",
+      question: "How do I order a beehive or honey?",
       answer:
-        "If your payment fails, check your M-Pesa balance or payment details and try again. If the issue persists, contact support.",
+        "Simply browse our products, add them to your cart, and proceed to checkout. You can pay via M-Pesa, bank transfer, or card.",
     },
     {
-      question: "How do I contact customer support?",
+      question: "Do you deliver beehives nationwide?",
       answer:
-        "You can reach us at support@chakulahub.com or call our support line for urgent assistance.",
+        "Absolutely. We deliver across Kenya within 2–5 business days. Delivery fees vary depending on your location and order size.",
+    },
+    {
+      question: "Can bees be included with the hive?",
+      answer:
+        "Due to transport regulations, we do not ship live bees. However, we can connect you with local apiaries for bee colonies in your area.",
+    },
+    {
+      question: "How do I contact you for support?",
+      answer:
+        "You can email us at support@kmkbeehives.com or call our customer service line for immediate help.",
     },
   ];
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-orange-1 mb-4">Frequently Asked Questions</h1>
+      <h1 className="text-3xl font-bold text-yellow-700 mb-6 font-pop">
+        Frequently Asked Questions
+      </h1>
       {faqData.map((faq, index) => (
         <div key={index} className="mb-6 border-b pb-4">
-          <h2 className="text-xl font-semibold">{faq.question}</h2>
-          <p className="text-gray-700">{faq.answer}</p>
+          <h2 className="text-xl font-semibold text-gray-800">{faq.question}</h2>
+          <p className="text-gray-700 mt-2">{faq.answer}</p>
         </div>
       ))}
     </div>

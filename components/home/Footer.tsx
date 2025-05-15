@@ -14,7 +14,7 @@ const Footer = () => {
           <h1 className="font-bold text-xl text-orange-1">KMK BEEHIVES</h1>
           <p className="text-sm">Contact us</p>
           <p className="text-sm">Email: <Link href="mailto:Kmkbeehives@gmail.com" className="text-blue-500">Kmkbeehives@gmail.com</Link></p>
-          <p className="text-sm">Call: <a href="tel:+254798 050462" className="text-orange-1 font-semibold">0798 050462</a></p>
+          <p className="text-sm">Call: <a href="tel:+2547721949615" className="text-orange-1 font-semibold">0721949615</a></p>
         </div>
 
         {/* Navigation Links */}
