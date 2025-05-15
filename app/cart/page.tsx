@@ -91,7 +91,7 @@ const { user } = useAuth()
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("ChakulaHub Receipt", 105, 20, { align: "center" });
+    doc.text("KMK Beehives Receipt", 105, 20, { align: "center" });
 
     // Line separator
     doc.setLineWidth(0.5);
@@ -139,7 +139,7 @@ const { user } = useAuth()
     // Footer
     doc.setFont("helvetica", "italic");
     doc.setFontSize(12);
-    doc.text("Thank you for choosing ChakulaHub!", 105, 140 + cart.length * 10, { align: "center" });
+    doc.text("Thank you for choosing KMK Beehives!", 105, 140 + cart.length * 10, { align: "center" });
   
     // 2️⃣ Convert PDF to Blob for Upload
     const pdfBlob = new Blob([doc.output("blob")], { type: "application/pdf" });
@@ -232,7 +232,7 @@ const { user } = useAuth()
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("ChakulaHub Receipt", 105, 20, { align: "center" });
+    doc.text("KMK Beehives Receipt", 105, 20, { align: "center" });
 
     // Line separator
     doc.setLineWidth(0.5);
@@ -280,7 +280,7 @@ const { user } = useAuth()
     // Footer
     doc.setFont("helvetica", "italic");
     doc.setFontSize(12);
-    doc.text("Thank you for choosing ChakulaHub!", 105, 140 + cart.length * 10, { align: "center" });
+    doc.text("Thank you for choosing KMK Beehives!", 105, 140 + cart.length * 10, { align: "center" });
 
     // Save PDF
     doc.save(`Receipt_${orderID}.pdf`);

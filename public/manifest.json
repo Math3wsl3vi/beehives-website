@@ -1,6 +1,6 @@
 {
-  "name": "ChakulaHub",
-  "short_name": "ChakulaHub",
+  "name": "KMK Beehives",
+  "short_name": "KMK Beehives",
   "description": "Meal Booking Platform",
   "start_url": "/",
   "display": "standalone",

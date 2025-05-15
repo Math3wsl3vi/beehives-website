@@ -206,7 +206,7 @@ const MenuSection = () => {
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("ChakulaHub Receipt", 105, 20, { align: "center" });
+    doc.text("KMK Beehives Receipt", 105, 20, { align: "center" });
   
     // Line separator
     doc.setLineWidth(0.5);
@@ -246,7 +246,7 @@ const MenuSection = () => {
     // Footer
     doc.setFont("helvetica", "italic");
     doc.setFontSize(12);
-    doc.text("Thank you for choosing ChakulaHub!", 105, 150, { align: "center" });
+    doc.text("Thank you for choosing KMK Beehives!", 105, 150, { align: "center" });
   
     // Convert PDF to Blob
     const pdfBlob = new Blob([doc.output("blob")], { type: "application/pdf" });
@@ -317,7 +317,7 @@ const MenuSection = () => {
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("ChakulaHub Receipt", 105, 20, { align: "center" });
+    doc.text("KMK Beehives Receipt", 105, 20, { align: "center" });
 
     // Line separator
     doc.setLineWidth(0.5);
@@ -363,7 +363,7 @@ const MenuSection = () => {
     // Footer
     doc.setFont("helvetica", "italic");
     doc.setFontSize(12);
-    doc.text("Thank you for choosing ChakulaHub!", 105, 170, {
+    doc.text("Thank you for choosing KMK Beehives!", 105, 170, {
       align: "center",
     });
 
