@@ -9,6 +9,7 @@ import ProductsSection from "@/components/home/ProductsSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import HoneySection from "@/components/home/HoneySection";
 import InfoSection from "@/components/home/InfoSection";
+import ContactForm from "@/components/home/ContactForm";
 
 export default function Home() {
   useEffect(() => {
@@ -35,8 +36,9 @@ export default function Home() {
         {/* lunch */}
         {/* dinner */}
         {/* bottom bar */}
-        <div className="mt-10 p-4">
+        <div className="mt-10">
           {/* <Reviews /> */}
+          <ContactForm/>
         </div>
         <div className="mt-10">
           <Footer />
