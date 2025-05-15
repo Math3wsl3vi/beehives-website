@@ -31,7 +31,7 @@ const products = [
 
 const ProductsSection = () => {
   return (
-    <section className="px-6 py-16 bg-white font-poppinspins">
+    <section className="px-6 py-16 bg-white font-poppins">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-4 font-poppins">Our Hives</h2>
         <p className="text-gray-600 mb-12 text-lg">

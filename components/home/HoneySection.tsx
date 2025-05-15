@@ -19,14 +19,14 @@ const products = [
 
 const HoneySection = () => {
   return (
-    <section className="px-6 py-16 bg-white font-poppinspins">
+    <section className="max-w-7xl mx-auto px-6 py-12 font-poppins">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-4 font-poppins">Our Honey</h2>
         <p className="text-gray-600 mb-12 text-lg">
           Explore our premium selection pure natural honey.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((product) => (
             <div
               key={product.id}

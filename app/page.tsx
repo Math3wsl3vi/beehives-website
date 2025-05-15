@@ -10,6 +10,7 @@ import ServicesSection from "@/components/home/ServicesSection";
 import HoneySection from "@/components/home/HoneySection";
 import InfoSection from "@/components/home/InfoSection";
 import ContactForm from "@/components/home/ContactForm";
+import GearSection from "@/components/home/GearSection";
 
 export default function Home() {
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function Home() {
         {/* <MenuSection /> */}
         <ProductsSection/>
         <HoneySection/>
+        <GearSection/>
         <ServicesSection/>
         {/* lunch */}
         {/* dinner */}
