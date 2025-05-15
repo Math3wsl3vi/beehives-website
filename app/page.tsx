@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col relative h-screen w-full font-bab">
+      <div className="flex flex-col relative h-screen w-full font-pop">
         {/* navbar */}
         {/* main page */}
         <div>

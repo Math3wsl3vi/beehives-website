@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { auth, db } from "@/configs/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useCartStore } from "@/lib/store/cartStore";
+import { MenuIcon, ShoppingCartIcon } from "lucide-react";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -91,36 +92,39 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row items-center justify-between px-5 py-4 border-b-2 shadow-sm font-bab">
+      <div className="w-full flex flex-row items-center justify-between px-5 py-6 shadow-sm font-pop">
         <Link href={"/"} className="cursor-pointer">
           <Image src="/images/logo.png" alt="logo" width={40} height={40} />
         </Link>
-        <h1 className="text-xl uppercase font-semibold font-bab">ChakulaHub</h1>
+       <div className="flex gap-5 text-lg">
+        <Link href={'/'}>Home</Link>
+        <Link href={'/'}>Products</Link>
+        <Link href={'/'}>Services</Link>
+        <Link href={'/'}>Contact</Link>
+
+       </div>
 
         <div className="flex gap-5 items-center">
           <Link href={"/cart"} className="relative">
-            <Image src="/images/cart.png" alt="cart" width={25} height={25} />
+            {/* <Image src="/images/cart.png" alt="cart" width={25} height={25} /> */}
+            <ShoppingCartIcon/>
             {cartItemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-orange-1 text-white text-xs font-bold px-2 py-1 rounded-full">
                 {cartItemCount}
               </span>
             )}
           </Link>
-
-          <Image
-            src="/images/menu.png"
-            alt="menu"
-            width={25}
-            height={25}
+          <div  onClick={() => setSidebarOpen(true)}
             className="cursor-pointer"
-            onClick={() => setSidebarOpen(true)}
-          />
+            >
+               <MenuIcon/>
+          </div>
         </div>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 w-full h-full bg-white shadow-lg transform z-50 font-bab ${
+        className={`fixed top-0 right-0 md:w-1/3 w-full h-full bg-white shadow-lg transform z-50 font-pop ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >

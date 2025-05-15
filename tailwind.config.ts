@@ -17,8 +17,11 @@ export default {
 		  },
   		colors: {
 			orange: {
-				1:'#017023',
-				2:'#737f79'
+				1:'#EAB543',
+				2:'#8B5E3C',
+				3:'#F28C28',
+				4:'#FFF8E7',
+
 			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
