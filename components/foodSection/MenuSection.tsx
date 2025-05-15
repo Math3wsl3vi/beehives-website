@@ -380,7 +380,7 @@ const MenuSection = () => {
   return (
     <div>
       <div>
-        <h1 className="text-center text-2xl text-orange-1 font-pop">
+        <h1 className="text-center text-2xl text-orange-1 font-poppins">
           Browse The Daily Menu
         </h1>
         <div className="flex items-center justify-center px-10 my-2">
@@ -408,20 +408,20 @@ const MenuSection = () => {
                         />
                       )}
                       <div>
-                      <h3 className="text-lg font-semibold font-pop">{meal.name}</h3>
-                      <p className="text-green-600 font-bold font-pop">Ksh {meal.price}</p>
+                      <h3 className="text-lg font-semibold font-poppins">{meal.name}</h3>
+                      <p className="text-green-600 font-bold font-poppins">Ksh {meal.price}</p>
                       </div>
               </div>
               
               <div className="flex gap-5">
                 <button
-                  className="mt-2 w-full bg-orange-2 text-white p-2 rounded font-pop"
+                  className="mt-2 w-full bg-orange-2 text-white p-2 rounded font-poppins"
                   onClick={() => placeOrder(meal)}
                 >
                   Order Now
                 </button>
                 <button
-                  className="mt-2 w-full bg-orange-1 text-white p-2 rounded font-pop"
+                  className="mt-2 w-full bg-orange-1 text-white p-2 rounded font-poppins"
                   onClick={() => addToCart(meal)}
                 >
                   Add To Cart
@@ -434,7 +434,7 @@ const MenuSection = () => {
         <p>No meals found.</p>
       ) : null}
 
-      <div className="grid grid-cols-3 px-10 mt-10 font-pop">
+      <div className="grid grid-cols-3 px-10 mt-10 font-poppins">
         {["Breakfast", "Lunch", "Supper"].map((category) => (
           <div
             key={category}
@@ -478,13 +478,13 @@ const MenuSection = () => {
 
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="mt-2 font-semibold capitalize font-pop">
+                      <h3 className="mt-2 font-semibold capitalize font-poppins">
                         {meal.name}
                       </h3>
-                      <p className="mt-2 font-bold text-orange-1 font-pop">
+                      <p className="mt-2 font-bold text-orange-1 font-poppins">
                         Ksh {meal.price}
                       </p>
-                      <h3 className="mt-2 font-semibold font-pop">
+                      <h3 className="mt-2 font-semibold font-poppins">
                         {meal.quantity} Left
                       </h3>
                     </div>
@@ -502,13 +502,13 @@ const MenuSection = () => {
                   </div>
                   <div className="flex gap-5">
                     <button
-                      className="mt-2 w-full bg-orange-2 text-white p-2 rounded font-pop"
+                      className="mt-2 w-full bg-orange-2 text-white p-2 rounded font-poppins"
                       onClick={() => placeOrder(meal)}
                     >
                       Order Now
                     </button>
                     <button
-                      className="mt-2 w-full bg-orange-1 text-white p-2 rounded font-pop"
+                      className="mt-2 w-full bg-orange-1 text-white p-2 rounded font-poppins"
                       onClick={() => addToCart(meal)}
                     >
                       Add To Cart

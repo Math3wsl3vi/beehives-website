@@ -163,7 +163,7 @@ const Reviews = () => {
   return (
     <div className="md:flex md:justify-center md:items-center">
       <div className="p-6 border rounded-md md:w-1/3">
-        <h1 className="text-2xl font-bold mb-4 font-pop">Meal Reviews</h1>
+        <h1 className="text-2xl font-bold mb-4 font-poppins">Meal Reviews</h1>
         <div className="mb-6">
           <DropdownMenu>
             <DropdownMenuTrigger className="border p-2 w-full bg-white text-left">
@@ -194,7 +194,7 @@ const Reviews = () => {
             onChange={(e) => setReviewText(e.target.value)}
             className="border p-2 w-full mt-2 bg-white"
           />
-          <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full md:w-1/3 font-pop " onClick={submitReview}>
+          <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full md:w-1/3 font-poppins " onClick={submitReview}>
             Submit Review
           </Button>
         </div>
@@ -203,11 +203,11 @@ const Reviews = () => {
           <>
             {reviews.slice(0, showAll ? reviews.length : 2).map((review) => (
               <div key={review.id} className="border p-4 mb-4 rounded">
-                <p className="font-pop"><strong>User:</strong> {review.userEmail}</p>
-                <p className="font-pop"><strong>Meal:</strong> {review.mealName}</p>
-                <p className="font-pop"><strong>Review:</strong> {review.reviewText}</p>
-                <p className="font-pop"><strong>Rating:</strong> {"⭐".repeat(review.rating)}</p>
-                <p className="font-pop"><strong>Response:</strong> {review.adminResponse || "No response yet"}</p>
+                <p className="font-poppins"><strong>User:</strong> {review.userEmail}</p>
+                <p className="font-poppins"><strong>Meal:</strong> {review.mealName}</p>
+                <p className="font-poppins"><strong>Review:</strong> {review.reviewText}</p>
+                <p className="font-poppins"><strong>Rating:</strong> {"⭐".repeat(review.rating)}</p>
+                <p className="font-poppins"><strong>Response:</strong> {review.adminResponse || "No response yet"}</p>
                 {isAdmin && (
                 <div className="mt-2">
                   <Textarea
@@ -216,7 +216,7 @@ const Reviews = () => {
                     onChange={(e) => handleAdminResponseChange(review.id, e.target.value)}
                     className="border p-2 w-full bg-white"
                   />
-                  <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 font-pop" 
+                  <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 font-poppins" 
                     onClick={() => submitAdminResponse(review.id)}>
                     Submit Response
                   </Button>
@@ -224,13 +224,13 @@ const Reviews = () => {
               )}
               </div>
             ))}
-            <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full font-pop" 
+            <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full font-poppins" 
               onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show Less" : "View More"}
             </Button>
           </>
         ) : (
-          <p className="font-pop">No reviews yet.</p>
+          <p className="font-poppins">No reviews yet.</p>
         )}
       </div>
     </div>

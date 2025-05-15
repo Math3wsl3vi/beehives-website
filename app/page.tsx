@@ -1,10 +1,11 @@
 "use client";
 import { useEffect } from "react";
-import MenuSection from "@/components/foodSection/MenuSection";
+// import MenuSection from "@/components/foodSection/MenuSection";
 import Footer from "@/components/home/Footer";
 import Hero from "@/components/home/Hero";
-import Reviews from "@/components/home/Review";
+// import Reviews from "@/components/home/Review";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import ProductsSection from "@/components/home/ProductsSection";
 
 export default function Home() {
   useEffect(() => {
@@ -16,19 +17,20 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col relative h-screen w-full font-pop">
+      <div className="flex flex-col relative h-screen w-full font-poppins">
         {/* navbar */}
         {/* main page */}
         <div>
           <Hero />
         </div>
         {/* breakfast */}
-        <MenuSection />
+        {/* <MenuSection /> */}
+        <ProductsSection/>
         {/* lunch */}
         {/* dinner */}
         {/* bottom bar */}
         <div className="mt-10 p-4">
-          <Reviews />
+          {/* <Reviews /> */}
         </div>
         <div className="mt-10">
           <Footer />

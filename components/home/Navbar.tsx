@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -92,11 +91,12 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row items-center justify-between px-5 py-6 shadow-sm font-pop">
+      <div className="w-full flex flex-row items-center justify-between px-5 py-4 shadow-sm font-poppins">
         <Link href={"/"} className="cursor-pointer">
-          <Image src="/images/logo.png" alt="logo" width={40} height={40} />
+          <h1 className="text-xl font-serif">KMK</h1>
+          <h1 className="text-2xl uppercase font-semibold">Bee<span className="text-orange-1">hives</span></h1>
         </Link>
-       <div className="flex gap-5 text-lg">
+       <div className="md:flex gap-5 text-lg hidden">
         <Link href={'/'}>Home</Link>
         <Link href={'/'}>Products</Link>
         <Link href={'/'}>Services</Link>
@@ -124,7 +124,7 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 md:w-1/3 w-full h-full bg-white shadow-lg transform z-50 font-pop ${
+        className={`fixed top-0 right-0 md:w-1/3 w-full h-full bg-white shadow-lg transform z-50 font-poppins ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >
@@ -139,8 +139,14 @@ const Navbar = () => {
           <Link href="/" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
             Home
           </Link>
-          <Link href="/profile" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
-            Profile
+          <Link href="/products" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
+            Products
+          </Link>
+          <Link href="/services-page" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
+            Services
+          </Link>
+          <Link href="/contact" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
+            Contact
           </Link>
           {!loading && isAdmin && (
             <Link href="/admin" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
