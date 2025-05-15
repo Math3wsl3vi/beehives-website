@@ -98,9 +98,9 @@ const Navbar = () => {
         </Link>
        <div className="md:flex gap-5 text-lg hidden">
         <Link href={'/'}>Home</Link>
-        <Link href={'/'}>Products</Link>
-        <Link href={'/'}>Services</Link>
-        <Link href={'/'}>Contact</Link>
+        <Link href={'/products-page'}>Products</Link>
+        <Link href={'/services-page'}>Services</Link>
+        <Link href={'/contact'}>Contact</Link>
 
        </div>
 
@@ -139,7 +139,7 @@ const Navbar = () => {
           <Link href="/" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
             Home
           </Link>
-          <Link href="/products" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
+          <Link href="/products-page" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
             Products
           </Link>
           <Link href="/services-page" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
