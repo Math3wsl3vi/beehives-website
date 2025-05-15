@@ -7,33 +7,21 @@ const products = [
     id: 1,
     name: "Beehive 1",
     price: "Ksh 4,500",
-    image: "/images/beehive1.jpeg",
+    image: "/images/honey1.jpg",
   },
   {
     id: 2,
     name: "Beehive 2",
     price: "Ksh 5,000",
-    image: "/images/beehive2.jpeg",
-  },
-  {
-    id: 3,
-    name: "Beehive 3",
-    price: "Ksh 4,200",
-    image: "/images/beehive3.jpeg",
-  },
-  {
-    id: 4,
-    name: "Beehive 4",
-    price: "Ksh 4,000",
-    image: "/images/beehive4.jpeg",
+    image: "/images/honey2.jpg",
   },
 ];
 
-const ProductsSection = () => {
+const HoneySection = () => {
   return (
     <section className="px-6 py-16 bg-white font-poppinspins">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-4 font-poppins">Our Hives</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-4 font-poppins">Our Honey</h2>
         <p className="text-gray-600 mb-12 text-lg">
           Explore our premium selection of beekeeping equipment and pure honey.
         </p>
@@ -66,4 +54,4 @@ const ProductsSection = () => {
   );
 };
 
-export default ProductsSection;
+export default HoneySection;

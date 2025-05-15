@@ -7,8 +7,8 @@ import { AuthProvider } from "@/context/AuthContext";
 
 
 export const metadata: Metadata = {
-  title: "Chakulahub",
-  description: "Meal Booking Platform",
+  title: "KMK Beehives",
+  description: "Quality Beehives",
   manifest: "/manifest.json",
 };
 

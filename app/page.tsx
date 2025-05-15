@@ -6,6 +6,9 @@ import Hero from "@/components/home/Hero";
 // import Reviews from "@/components/home/Review";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ProductsSection from "@/components/home/ProductsSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import HoneySection from "@/components/home/HoneySection";
+import InfoSection from "@/components/home/InfoSection";
 
 export default function Home() {
   useEffect(() => {
@@ -22,10 +25,13 @@ export default function Home() {
         {/* main page */}
         <div>
           <Hero />
+          <InfoSection/>
         </div>
         {/* breakfast */}
         {/* <MenuSection /> */}
         <ProductsSection/>
+        <HoneySection/>
+        <ServicesSection/>
         {/* lunch */}
         {/* dinner */}
         {/* bottom bar */}
