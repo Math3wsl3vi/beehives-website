@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-[50vh] px-6 pt-16 pb-24 text-center bg-gradient-to-b from-yellow-50 via-white to-white">
+    <section className="relative w-full  px-6 pt-16 pb-24 text-center bg-gradient-to-b from-yellow-50 via-white to-white">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-yellow-700 font-poppins">
           Pure Honey & Beehives from Nature 🍯
