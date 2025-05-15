@@ -37,8 +37,7 @@ Make sure you have the following installed:
 ### Installation
 
 ```bash
-git clone https://github.com/math3wsl3vu/beehives-website.git
+git clone https://github.com/math3wsl3vi/beehives-website.git
 cd beehives-website
-npm install
-# or
-yarn install
+
+Run the development server
