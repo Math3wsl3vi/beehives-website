@@ -106,7 +106,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-full h-screen">
+    <div className="flex justify-center items-center w-full h-[70vh] md:h-screen">
       <Card className="w-[350px]">
         <CardHeader className="flex items-center flex-col">
           <CardTitle>Welcome to KMK Beehives</CardTitle>
