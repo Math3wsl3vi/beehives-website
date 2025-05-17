@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import Reviews from "./Review";
+import { Frame, Hammer, House, Paintbrush, Scale, TableProperties } from "lucide-react";
 
 export default function ProductTabs() {
   const [activeTab, setActiveTab] = useState("description");
@@ -46,24 +47,64 @@ export default function ProductTabs() {
       {/* Tab Content */}
       {activeTab === "description" && (
         <div className="py-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Product Details</h3>
-          <div className="prose prose-yellow max-w-none text-gray-700">
-            <p>
-              Our premium beehive is crafted from sustainably sourced cedar wood, known for its natural resistance to rot and insects...
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Product Details
+          </h3>
+          <div className="prose prose-yellow max-w-none text-gray-700 flex flex-col gap-4">
+          <div className="flex gap-2">
+            <Hammer className="text-green-500"/>
+          <p>
+              Body: Made from treated and painted timber, ensuring long-lasting durability and protection against
+              pests and weather.
             </p>
-            {/* Add more paragraphs here */}
+
+          </div>
+          <div className="flex gap-2">
+            <Frame className="text-green-500"/>
+          <p>
+          Frames: Typically comes with 10–20 removable frames for easy honey harvesting and inspection.
+            </p>
+
+          </div>
+
+          <div className="flex gap-2">
+            <House className="text-green-500"/>
+          <p>
+          Roof: Corrugated metal or iron sheet cover, providing excellent rain and sun protection.
+            </p>
+
+          </div>
+          <div className="flex gap-2">
+            <Paintbrush className="text-green-500"/>
+          <p>
+          Color: Bright yellow paint helps in weatherproofing and easy visibility for bees.
+            </p>
+          </div>
           </div>
         </div>
       )}
 
       {activeTab === "specs" && (
         <div className="py-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Product Specifications</h3>
-          <div className="prose prose-yellow max-w-none text-gray-700">
-            <p>
-              Our premium beehive is crafted from sustainably sourced cedar wood, known for its natural resistance to rot and insects...
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Product Specifications
+          </h3>
+          <div className="prose prose-yellow max-w-none text-gray-700 flex flex-col gap-4">
+          <div className="flex gap-2">
+            <TableProperties className="text-green-500"/>
+          <p>
+          Standard Size: Approx.{' 22"'} L x {'16"'} W x {'14"'} H 
             </p>
-            {/* Add more paragraphs here */}
+
+          </div>
+          <div className="flex gap-2">
+            <Scale className="text-green-500"/>
+          <p>
+          Weight: ~5–10 kg depending on included parts.
+            </p>
+
+          </div>
+
           </div>
         </div>
       )}
