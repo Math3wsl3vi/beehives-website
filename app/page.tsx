@@ -9,6 +9,7 @@ import HoneySection from "@/components/home/HoneySection";
 import InfoSection from "@/components/home/InfoSection";
 import ContactForm from "@/components/home/ContactForm";
 import GearSection from "@/components/home/GearSection";
+import Footer from "@/components/home/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -39,9 +40,9 @@ export default function Home() {
           {/* <Reviews /> */}
           <ContactForm/>
         </div>
-        {/* <div className="mt-10">
+        <div className="mt-10">
           <Footer />
-        </div> */}
+        </div>
       </div>
     </ProtectedRoute>
   );

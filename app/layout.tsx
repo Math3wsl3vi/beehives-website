@@ -4,6 +4,7 @@ import Navbar from "@/components/home/Navbar";
 
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
+import Footer from "@/components/home/Footer";
 
 
 export const metadata: Metadata = {
@@ -18,20 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`antialiased`}
-      >
+    <html lang="en" className="h-full">
+      <body className="flex flex-col min-h-screen antialiased">
         <AuthProvider>
-        <div>
-          <Navbar/>
-        </div>
-        <Toaster/>
-        {children}
-        {/* <div className="fixed bottom-0 w-full mt-20">
-        <Footer/>
-      </div> */}
-      </AuthProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
