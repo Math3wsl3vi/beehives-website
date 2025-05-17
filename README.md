@@ -1,6 +1,6 @@
 # 🍯 Beehive & Honey Store Website
 
-This is a modern, responsive eCommerce website built for a client to showcase and sell **beehives** and **natural honey** products. The platform is designed to provide a smooth shopping experience with features like product listings, shopping cart, and contact functionality.
+This is a modern, responsive eCommerce website build to showcase and sell **beehives** and **natural honey** products. The platform is designed to provide a smooth shopping experience with features like product listings, shopping cart, and contact functionality.
 
 ## 🛠️ Tech Stack
 
