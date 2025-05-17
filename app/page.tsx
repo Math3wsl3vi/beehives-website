@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import Hero from "@/components/home/Hero";
-// import Reviews from "@/components/home/Review";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ProductsSection from "@/components/home/ProductsSection";
 import ServicesSection from "@/components/home/ServicesSection";
