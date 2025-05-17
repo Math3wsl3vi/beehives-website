@@ -17,8 +17,13 @@ interface Product {
   imageUrl?: string;
 }
 
-const ProductPage = async ({ params }: { params: { id: string } }) => {
-  const productRef = doc(db, "products", params.id);
+  
+type ProductParams = Promise<{ id: string }>;
+
+export default async function ProductPage({ params }: { params: ProductParams }) {
+  const { id } = await params;
+  
+  const productRef = doc(db, "products", id);
   const productSnap = await getDoc(productRef);
 
   if (!productSnap.exists()) return notFound();
@@ -185,4 +190,3 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default ProductPage;
