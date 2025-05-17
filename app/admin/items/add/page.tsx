@@ -150,6 +150,7 @@ const AddItem = () => {
               })
             }
             className="border p-2 w-full"
+            required
           />
         </div>
 
