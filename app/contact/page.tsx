@@ -1,5 +1,4 @@
 import ContactForm from '@/components/home/ContactForm'
-import Footer from '@/components/home/Footer'
 import React from 'react'
 
 const ContactPage = () => {
@@ -7,11 +6,7 @@ const ContactPage = () => {
     <div>
    <div className=''>
    <ContactForm/>
-   </div>
-    <div className=''>
-    <Footer/>
-    </div>
-    
+   </div>    
     </div>
   )
 }
