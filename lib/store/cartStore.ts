@@ -1,16 +1,19 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type Meal = {
+type Product = {
   id: string;
   name: string;
-  price: number;
-  quantity: number;
+  price: string; // Stored as string per Firestore schema
+  quantity: number; // Quantity in cart (number)
+  category: string;
+  imageUrl?: string;
+  desc?: string;
 };
 
 type CartState = {
-  cart: Meal[];
-  addToCart: (meal: Meal) => void;
+  cart: Product[];
+  addToCart: (product: Product) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -22,22 +25,33 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       cart: [],
 
-      addToCart: (meal) =>
+      addToCart: (product) =>
         set((state) => {
-          const existingMeal = state.cart.find((item) => item.id === meal.id);
-          if (existingMeal) {
+          const existingProduct = state.cart.find((item) => item.id === product.id);
+          if (existingProduct) {
             return {
               cart: state.cart.map((item) =>
-                item.id === meal.id ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === product.id
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item
               ),
             };
           }
-          return { cart: [...state.cart, { ...meal, quantity: 1 }] };
+          return {
+            cart: [
+              ...state.cart,
+              {
+                ...product,
+                quantity: 1, // Initialize cart quantity as 1
+                price: product.price, // Keep as string for consistency
+              },
+            ],
+          };
         }),
 
       removeFromCart: (id) =>
         set((state) => ({
-          cart: state.cart.filter((meal) => meal.id !== id),
+          cart: state.cart.filter((product) => product.id !== id),
         })),
 
       updateQuantity: (id, quantity) =>
@@ -50,13 +64,15 @@ export const useCartStore = create<CartState>()(
       clearCart: () => set({ cart: [] }),
 
       getTotalPrice: () => {
-        return get().cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        return get().cart.reduce(
+          (total, item) => total + parseFloat(item.price) * item.quantity,
+          0
+        );
       },
     }),
     {
-      name: "cart-storage", // Unique key for localStorage
-      storage: createJSONStorage(() => localStorage)
-, // ✅ Fix: Use `storage` instead of `getStorage`
+      name: "beehive-cart-storage", // Unique key for localStorage, updated for beehive context
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
