@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import JsBarcode from "jsbarcode";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import Link from "next/link";
 
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -266,67 +267,180 @@ const CartPage = () => {
   };
 
   return (
-    <div className="p-5">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-poppins">
       {cart.length === 0 ? (
-        <div>
-          <p className="text-2xl text-center">No items in your cart</p>
-          <div className="flex justify-center items-center">
-            <Image src={"/images/emptycartnew.png"} alt="cart" width={500} height={500} className="" />
+        <section className="text-center py-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Cart is Empty</h2>
+          <div className="flex justify-center items-center mb-6">
+            <Image
+              src="/images/emptycartnew.png"
+              alt="Empty cart"
+              width={300}
+              height={300}
+              className="object-contain"
+            />
           </div>
-        </div>
-      ) : (
-        <div>
-          <h1 className="text-2xl font-bold">Your Cart</h1>
-          {cart.map((item) => (
-            <div key={item.id} className="border p-4 mb-2 flex justify-between">
-              <div>
-                <h3>{item.name}</h3>
-                <p>Ksh {parseFloat(item.price)} x {item.quantity}</p>
-              </div>
-              <div className="flex items-center border p-1 rounded-md">
-                <button
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  className="px-2 py-1 text-lg"
-                >
-                  −
-                </button>
-                <span className="mx-3 text-lg">{item.quantity}</span>
-                <button
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  className="px-2 py-1 text-lg"
-                >
-                  +
-                </button>
-              </div>
-              <button onClick={() => removeFromCart(item.id)} className="text-red-500">
-                Remove
-              </button>
-            </div>
-          ))}
-          <p className="font-bold">Total: Ksh {totalAmount}</p>
-          <input
-            type="text"
-            placeholder="Enter phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="border p-2 w-full mt-2"
-          />
-          <button
-            onClick={handlePayment}
-            className="bg-orange-1 text-white p-2 w-full mt-4"
-            disabled={polling}
+          <Link
+            href="/"
+            className="inline-block bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition-colors"
           >
-            {polling ? "Processing..." : "Confirm & Pay"}
-          </button>
-          {isPaymentSuccessful && (
-            <button
-              onClick={downloadReceipt}
-              className="bg-green-500 text-white p-2 w-full mt-4"
-            >
-              Download Receipt
-            </button>
-          )}
-        </div>
+            Shop Now
+          </Link>
+        </section>
+      ) : (
+        <section className="space-y-8">
+          <h1 className="text-3xl font-bold text-gray-900">Your Cart</h1>
+          <div className="space-y-4">
+            {cart.map((item) => (
+              <article
+                key={item.id}
+                className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              >
+                <Image
+                  src={item.imageUrl || "/images/placeholder.jpg"}
+                  alt={item.name}
+                  width={80}
+                  height={80}
+                  className="rounded-md object-cover"
+                />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+                  <p className="text-gray-600">
+                    Ksh {parseFloat(item.price).toFixed(2)} x {item.quantity}
+                  </p>
+                </div>
+                <div className="flex items-center border border-gray-300 rounded-md">
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-l-md"
+                    aria-label={`Decrease quantity of ${item.name}`}
+                    disabled={isPaymentSuccessful}
+                  >
+                    −
+                  </button>
+                  <span className="px-4 py-1 text-gray-900">{item.quantity}</span>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-r-md"
+                    aria-label={`Increase quantity of ${item.name}`}
+                    disabled={isPaymentSuccessful}
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="text-red-500 hover:text-red-600 font-medium"
+                  aria-label={`Remove ${item.name} from cart`}
+                  disabled={isPaymentSuccessful}
+                >
+                  Remove
+                </button>
+              </article>
+            ))}
+          </div>
+
+          {/* Cart Summary */}
+          <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
+            <div className="space-y-2">
+              <div className="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span>Ksh {totalAmount.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-gray-600">
+                <span>Shipping</span>
+                <span>Free</span>
+              </div>
+              <div className="flex justify-between font-bold text-gray-900 pt-2 border-t border-gray-200">
+                <span>Total</span>
+                <span>Ksh {totalAmount.toFixed(2)}</span>
+              </div>
+            </div>
+            <input
+              type="text"
+              placeholder="Enter phone number (07XXXXXXXX or 01XXXXXXXX)"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={`w-full p-3 mt-4 border rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent ${
+                phoneNumber && !/^254(7|1)\d{8}$/.test(phoneNumber.replace(/^0/, "254"))
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+              aria-required="true"
+              disabled={isPaymentSuccessful}
+            />
+            {isPaymentSuccessful ? (
+              <div className="mt-4">
+                <div className="flex items-center justify-center mb-4">
+                  <svg
+                    className="h-8 w-8 text-green-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="ml-2 text-lg font-semibold text-green-600">
+                    Payment Successful!
+                  </span>
+                </div>
+                <button
+                  onClick={downloadReceipt}
+                  className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors"
+                  aria-label="Download purchase receipt"
+                >
+                  Download Receipt
+                </button>
+                <Link
+                  href="/"
+                  className="w-full mt-4 inline-block bg-orange-1 text-white py-3 rounded-lg hover:bg-orange-700 transition-colors text-center"
+                >
+                  Shop More
+                </Link>
+              </div>
+            ) : (
+              <button
+                onClick={handlePayment}
+                className="w-full mt-4 bg-yellow-600 text-white py-3 rounded-lg hover:bg-yellow-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={polling}
+                aria-label="Confirm payment and proceed"
+              >
+                {polling ? (
+                  <span className="flex items-center justify-center">
+                    <svg
+                      className="animate-spin h-5 w-5 mr-2 text-white"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Processing...
+                  </span>
+                ) : (
+                  "Confirm & Pay"
+                )}
+              </button>
+            )}
+          </div>
+        </section>
       )}
     </div>
   );

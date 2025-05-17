@@ -25,7 +25,7 @@ const AdminOrders = () => {
   const ordersPerPage = 15; 
 
   useEffect(() => {
-    const ordersRef = collection(db, "orders");
+    const ordersRef = collection(db, "products");
   
     const unsubscribe = onSnapshot(ordersRef, (snapshot) => {
       const updatedOrders: Order[] = snapshot.docs
