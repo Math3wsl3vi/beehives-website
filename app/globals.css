@@ -24,6 +24,10 @@ body {
   font-style: normal;
 }
 
+.first-letter-uppercase::first-letter {
+  text-transform: uppercase;
+}
+
 
 
 @layer base {

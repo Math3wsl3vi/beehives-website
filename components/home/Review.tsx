@@ -245,7 +245,7 @@ const Reviews = () => {
                 <div key={review.id} className="border-b border-gray-100 pb-6 last:border-0">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="font-semibold text-gray-900 capitalize">
                         {review.userName || review.userEmail?.split('@')[0] || 'Anonymous'}
                       </h3>
                       <div className="flex items-center mt-1">
@@ -267,12 +267,12 @@ const Reviews = () => {
                     </span>
                   </div>
 
-                  <p className="mt-3 text-gray-700">{review.reviewText}</p>
+                  <p className="mt-3 text-gray-700 first-letter-uppercase">{review.reviewText}</p>
 
                   {review.adminResponse && (
                     <div className="mt-4 pl-4 border-l-2 border-yellow-200">
-                      <p className="text-sm font-medium text-gray-900">Beekeepers Response:</p>
-                      <p className="text-sm text-gray-600 mt-1">{review.adminResponse}</p>
+                      <p className="text-sm font-medium text-gray-900">{"Admin's"} Response:</p>
+                      <p className="text-sm text-gray-600 mt-1 first-letter-uppercase">{review.adminResponse}</p>
                     </div>
                   )}
 
