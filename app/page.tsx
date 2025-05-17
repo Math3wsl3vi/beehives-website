@@ -1,6 +1,5 @@
 "use client";
 import { useEffect } from "react";
-// import MenuSection from "@/components/foodSection/MenuSection";
 import Hero from "@/components/home/Hero";
 // import Reviews from "@/components/home/Review";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -29,7 +28,6 @@ export default function Home() {
           <InfoSection/>
         </div>
         {/* breakfast */}
-        {/* <MenuSection /> */}
         <ProductsSection/>
         <HoneySection/>
         <GearSection/>

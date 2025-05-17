@@ -4,8 +4,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/configs/firebaseConfig";
 import { Star, Shield, Truck } from "lucide-react";
 import Link from "next/link";
-import ProductTabs from "@/components/home/Producttabs";
 import ProductPurchaseOptions from "@/components/home/ProdcuctPurchaseOptions";
+import ProductTabs from "@/components/home/Producttabs";
 
 
 interface Product {
@@ -32,6 +32,38 @@ export default async function ProductPage({ params }: { params: ProductParams })
     id: productSnap.id,
     ...productSnap.data(),
   } as Product;
+
+  // Define feature sets for each category
+  const categoryFeatures: { [key: string]: string[] } = {
+    beehives: [
+      "Durable wood construction",
+      "Weather-resistant finish",
+      "Easy-access honey frames",
+      "Ventilated design for optimal bee health",
+    ],
+    honey: [
+      "100% pure and natural",
+      "Sustainably harvested",
+      "Rich in antioxidants",
+      "Sealed for freshness",
+    ],
+    gear: [
+      "High-quality protective materials",
+      "Designed for comfort and safety",
+      "Durable and easy to clean",
+      "Ergonomic design for beekeepers",
+    ],
+    default: [
+      "Premium quality materials",
+      "Designed for durability",
+      "Eco-friendly production",
+      "Trusted by beekeepers",
+    ],
+  };
+
+  // Select features based on category (case-insensitive)
+  const normalizedCategory = product.category.toLowerCase();
+  const features = categoryFeatures[normalizedCategory] || categoryFeatures.default;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-poppins">
@@ -128,30 +160,14 @@ export default async function ProductPage({ params }: { params: ProductParams })
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-gray-900">Key Features</h3>
             <ul className="space-y-2 text-gray-700">
-              <li className="flex items-start">
-                <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Durable wood construction</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Weather-resistant finish</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Easy-access honey frames</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Ventilated design for optimal bee health</span>
-              </li>
+              {features.map((feature, index) => (
+                <li key={index} className="flex items-start">
+                  <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
             </ul>
           </div>
 

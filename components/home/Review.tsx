@@ -151,7 +151,7 @@ const Reviews = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto -p-2 md:p-6 font-poppins">
+    <div className="max-w-7xl mx-auto -p-2 font-poppins">
       <div className="rounded-md p-6 mb-8">
         <h1 className="text-3xl font-bold text-yellow-700 mb-6">Product Reviews</h1>
         
