@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -17,7 +18,7 @@ interface Product {
 
 
 
-const ProductsSection = () => {
+const HoneySection = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -120,4 +121,4 @@ const ProductsSection = () => {
   );
 };
 
-export default ProductsSection;
+export default HoneySection;
