@@ -3,48 +3,51 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/configs/firebaseConfig";
 import { 
-    collection, addDoc, getDocs, serverTimestamp, Timestamp, 
-    doc as firestoreDoc, updateDoc, getDoc, 
-    doc,
-    onSnapshot
+  collection, addDoc, getDocs, serverTimestamp, 
+  doc, updateDoc, getDoc, onSnapshot, 
+  Timestamp
 } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Star } from "lucide-react"; // Import star icon for rating
+import { Star, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import Image from "next/image";
 
-type Meal = {
+interface Product {
   id: string;
   name: string;
-};
+  imageUrl?: string;
+}
 
-type Review = {
+interface Review {
   id: string;
   userId: string;
+  userName?: string;
   userEmail?: string;
-  mealId: string;
-  mealName?: string;
+  productId: string;
+  productName?: string;
   reviewText: string;
   rating: number;
   adminResponse?: string;
   createdAt?: Timestamp;
-};
+}
 
 const Reviews = () => {
   const { user } = useAuth();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewText, setReviewText] = useState("");
-  const [rating, setRating] = useState<number>(5); // Default rating
-  const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
+  const [rating, setRating] = useState<number>(5);
+  const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [adminResponses, setAdminResponses] = useState<{ [key: string]: string }>({});
   const [showAll, setShowAll] = useState(false);
   const { toast } = useToast();
@@ -52,107 +55,94 @@ const Reviews = () => {
   useEffect(() => {
     const checkIfAdmin = async () => {
       if (!user) return;
-  
       try {
-        const adminDoc = await getDoc(firestoreDoc(db, "admins", user.uid));
+        const adminDoc = await getDoc(doc(db, "admins", user.uid));
         setIsAdmin(adminDoc.exists());
       } catch (error) {
         console.error("Error checking admin status:", error);
       }
     };
-  
     checkIfAdmin();
   }, [user]);
 
   useEffect(() => {
-    const fetchMeals = async () => {
+    const fetchProducts = async () => {
       try {
-        const mealsSnapshot = await getDocs(collection(db, "meals"));
-        const mealsData = mealsSnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name }));
-        setMeals(mealsData);
+        const productsSnapshot = await getDocs(collection(db, "products"));
+        const productsData = productsSnapshot.docs.map((doc) => ({ 
+          id: doc.id, 
+          name: doc.data().name,
+          imageUrl: doc.data().imageUrl 
+        }));
+        setProducts(productsData);
       } catch (error) {
-        console.error("Error fetching meals:", error);
+        console.error("Error fetching products:", error);
       }
     };
-  
-    fetchMeals();
+    fetchProducts();
   }, []);
 
   useEffect(() => {
-    if (meals.length === 0) return; // Ensure meals are loaded before fetching reviews
-  
-    const reviewsRef = collection(db, "reviews");
-  
-    // Set up real-time listener
-    const unsubscribe = onSnapshot (reviewsRef, (snapshot) => {
+    if (products.length === 0) return;
+
+    const unsubscribe = onSnapshot(collection(db, "reviews"), (snapshot) => {
       const reviewList: Review[] = snapshot.docs.map((doc) => {
         const reviewData = doc.data() as Review;
-        const mealName = meals.find((meal) => meal.id === reviewData.mealId)?.name || "Unknown Meal"; // Use meals state
-  
+        const product = products.find((p) => p.id === reviewData.productId);
+        
         return {
           ...reviewData,
           id: doc.id,
-          mealName, // Attach meal name
+          productName: product?.name || "Unknown Product",
         };
       });
-  
-      setReviews(reviewList); // Update state in real-time
+      setReviews(reviewList);
     });
-  
-    return () => unsubscribe(); // Clean up the listener when the component unmounts
-  }, [meals]); // Depend on meals so it's loaded first
+
+    return () => unsubscribe();
+  }, [products]);
+
   const submitReview = async () => {
-    if (!user || !selectedMeal || !reviewText) {
-      toast({ description: "Please fill in all fields." });
+    if (!user || !selectedProduct || !reviewText) {
+      toast({ description: "Please select a product and write your review." });
       return;
     }
+    
     try {
+      const selectedProd = products.find(p => p.id === selectedProduct);
+      
       await addDoc(collection(db, "reviews"), {
         userId: user.uid,
         userEmail: user.email,
-        mealId: selectedMeal.id,
+        userName: user.displayName || user.email?.split('@')[0],
+        productId: selectedProduct,
+        productName: selectedProd?.name,
         reviewText,
         rating,
         adminResponse: "",
         createdAt: serverTimestamp(),
       });
+      
       setReviewText("");
       setRating(5);
-      setSelectedMeal(null);
-      toast({ description: "Review submitted!" });
+      setSelectedProduct("");
+      toast({ description: "Thank you for your review!" });
     } catch (error) {
       console.error("Error submitting review:", error);
+      toast({ description: "Failed to submit review.", variant: "destructive" });
     }
   };
 
-  const handleAdminResponseChange = (reviewId: string, response: string) => {
-    setAdminResponses((prev) => ({ ...prev, [reviewId]: response }));
-  };
-
-  const submitAdminResponse = async (reviewId: string) => {
-    if (!isAdmin) {
-      toast({ description: "You are not authorized to respond to reviews." });
-      return;
-    }
-  
-    if (!adminResponses[reviewId]) {
+  const handleAdminResponse = async (reviewId: string) => {
+    if (!isAdmin || !adminResponses[reviewId]) {
       toast({ description: "Response cannot be empty." });
       return;
     }
-  
+
     try {
       await updateDoc(doc(db, "reviews", reviewId), {
         adminResponse: adminResponses[reviewId],
       });
-  
-      setReviews((prev) =>
-        prev.map((r) =>
-          r.id === reviewId ? { ...r, adminResponse: adminResponses[reviewId] } : r
-        )
-      );
-  
-      setAdminResponses((prev) => ({ ...prev, [reviewId]: "" }));
-  
       toast({ description: "Response submitted!" });
     } catch (error) {
       console.error("Error updating response:", error);
@@ -161,76 +151,179 @@ const Reviews = () => {
   };
 
   return (
-    <div className="md:flex md:justify-center md:items-center">
-      <div className="p-6 border rounded-md md:w-1/3">
-        <h1 className="text-2xl font-bold mb-4 font-poppins">Meal Reviews</h1>
-        <div className="mb-6">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="border p-2 w-full bg-white text-left">
-              {selectedMeal ? selectedMeal.name : "Choose a meal to review"}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              {meals.map((meal) => (
-                <DropdownMenuItem key={meal.id} onClick={() => setSelectedMeal(meal)} className="cursor-pointer">
-                  {meal.name}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <div className="max-w-7xl mx-auto -p-2 md:p-6 font-poppins">
+      <div className="rounded-md p-6 mb-8">
+        <h1 className="text-3xl font-bold text-yellow-700 mb-6">Product Reviews</h1>
+        
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-xl font-semibold mb-3">Share Your Experience</h2>
+            <p className="text-gray-600 mb-4">
+              We value your feedback about our beekeeping products. Help other customers make informed decisions.
+            </p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Select Product
+                </label>
+                <Select onValueChange={setSelectedProduct} value={selectedProduct}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Choose a product" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {products.map((product) => (
+                      <SelectItem key={product.id} value={product.id}>
+                        <div className="flex items-center">
+                          {product.imageUrl && (
+                            <Image
+                              src={product.imageUrl} 
+                              alt={product.name}
+                              width={200}
+                              height={200}
+                              className="w-8 h-8 object-cover rounded-md mr-2"
+                            />
+                          )}
+                          {product.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div className="flex items-center mt-2">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                onClick={() => setRating(star)}
-                className={`w-6 h-6 cursor-pointer ${star <= rating ? "text-yellow-500" : "text-gray-400"}`}
-              />
-            ))}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Your Rating
+                </label>
+                <div className="flex items-center">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      onClick={() => setRating(star)}
+                      className={`w-6 h-6 cursor-pointer ${star <= rating ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}`}
+                    />
+                  ))}
+                  <span className="ml-2 text-sm text-gray-500">
+                    {rating} star{rating !== 1 ? 's' : ''}
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Your Review
+                </label>
+                <Textarea
+                  placeholder="Share your experience with this product..."
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  className="min-h-[120px]"
+                />
+              </div>
+
+              <Button 
+                onClick={submitReview}
+                className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-6 text-lg"
+              >
+                Submit Review
+              </Button>
+            </div>
           </div>
-
-          <Textarea
-            placeholder="Write your review..."
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
-            className="border p-2 w-full mt-2 bg-white"
-          />
-          <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full md:w-1/3 font-poppins " onClick={submitReview}>
-            Submit Review
-          </Button>
         </div>
+      </div>
+
+      <div className="bg-white rounded-md border p-6">
+        <h2 className="text-2xl font-bold text-yellow-700 mb-6">
+          Customer Reviews ({reviews.length})
+        </h2>
 
         {reviews.length > 0 ? (
           <>
-            {reviews.slice(0, showAll ? reviews.length : 2).map((review) => (
-              <div key={review.id} className="border p-4 mb-4 rounded">
-                <p className="font-poppins"><strong>User:</strong> {review.userEmail}</p>
-                <p className="font-poppins"><strong>Meal:</strong> {review.mealName}</p>
-                <p className="font-poppins"><strong>Review:</strong> {review.reviewText}</p>
-                <p className="font-poppins"><strong>Rating:</strong> {"⭐".repeat(review.rating)}</p>
-                <p className="font-poppins"><strong>Response:</strong> {review.adminResponse || "No response yet"}</p>
-                {isAdmin && (
-                <div className="mt-2">
-                  <Textarea
-                    placeholder="Write a response..."
-                    value={adminResponses[review.id] || ""}
-                    onChange={(e) => handleAdminResponseChange(review.id, e.target.value)}
-                    className="border p-2 w-full bg-white"
-                  />
-                  <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 font-poppins" 
-                    onClick={() => submitAdminResponse(review.id)}>
-                    Submit Response
-                  </Button>
+            <div className="space-y-6">
+              {reviews.slice(0, showAll ? reviews.length : 3).map((review) => (
+                <div key={review.id} className="border-b border-gray-100 pb-6 last:border-0">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {review.userName || review.userEmail?.split('@')[0] || 'Anonymous'}
+                      </h3>
+                      <div className="flex items-center mt-1">
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={`h-4 w-4 ${star <= review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-gray-500 ml-2">
+                          {review.createdAt?.toDate().toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium text-yellow-700 bg-yellow-50 px-2 py-1 rounded">
+                      {review.productName}
+                    </span>
+                  </div>
+
+                  <p className="mt-3 text-gray-700">{review.reviewText}</p>
+
+                  {review.adminResponse && (
+                    <div className="mt-4 pl-4 border-l-2 border-yellow-200">
+                      <p className="text-sm font-medium text-gray-900">Beekeepers Response:</p>
+                      <p className="text-sm text-gray-600 mt-1">{review.adminResponse}</p>
+                    </div>
+                  )}
+
+                  {isAdmin && !review.adminResponse && (
+                    <div className="mt-4">
+                      <Textarea
+                        placeholder="Respond to this review..."
+                        value={adminResponses[review.id] || ""}
+                        onChange={(e) => setAdminResponses(prev => ({
+                          ...prev,
+                          [review.id]: e.target.value
+                        }))}
+                        className="text-sm"
+                      />
+                      <Button
+                        onClick={() => handleAdminResponse(review.id)}
+                        className="mt-2 bg-yellow-600 hover:bg-yellow-700 text-white"
+                        size="sm"
+                      >
+                        Post Response
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              )}
-              </div>
-            ))}
-            <Button className="bg-orange-1 text-white px-4 py-2 rounded mt-2 w-full font-poppins" 
-              onClick={() => setShowAll(!showAll)}>
-              {showAll ? "Show Less" : "View More"}
-            </Button>
+              ))}
+            </div>
+
+            {reviews.length > 3 && (
+              <Button
+                onClick={() => setShowAll(!showAll)}
+                variant="ghost"
+                className="mt-6 text-yellow-600 hover:bg-yellow-50 w-full"
+              >
+                {showAll ? (
+                  <>
+                    <ChevronUp className="mr-2 h-4 w-4" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="mr-2 h-4 w-4" />
+                    Show All Reviews
+                  </>
+                )}
+              </Button>
+            )}
           </>
         ) : (
-          <p className="font-poppins">No reviews yet.</p>
+          <div className="text-center py-8">
+            <p className="text-gray-500">No reviews yet. Be the first to review!</p>
+          </div>
         )}
       </div>
     </div>

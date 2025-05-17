@@ -4,6 +4,7 @@ import { db } from "@/configs/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { Textarea } from "@/components/ui/textarea";
 
 const AddItem = () => {
   const router = useRouter();
@@ -14,12 +15,14 @@ const AddItem = () => {
     category: string;
     price: string;
     quantity: string;
+    desc:string;
     image: File | null;
   }>({
     name: "",
     category: "Honey",
     price: "",
     quantity: "",
+    desc:"",
     image: null,
   });
 
@@ -27,7 +30,7 @@ const AddItem = () => {
   const [message, setMessage] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setItem({ ...item, [e.target.name]: e.target.value });
   };
@@ -60,6 +63,7 @@ const AddItem = () => {
         category: item.category,
         price: Number(item.price),
         quantity: Number(item.quantity),
+        desc:item.desc,
         imageUrl,
       });
 
@@ -69,6 +73,7 @@ const AddItem = () => {
         category: "Honey",
         price: "",
         quantity: "",
+        desc:"",
         image: null,
       });
       router.push("/admin/items");
@@ -132,6 +137,16 @@ const AddItem = () => {
             type="number"
             name="price"
             value={item.price}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Description (KES)</label>
+          <Textarea
+            name="desc"
+            value={item.desc}
             onChange={handleChange}
             required
             className="w-full p-2 border rounded"

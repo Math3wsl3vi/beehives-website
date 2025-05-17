@@ -28,9 +28,9 @@ export default function RootLayout({
         </div>
         <Toaster/>
         {children}
-        <div className="">
-        {/* <BottomBar /> */}
-      </div>
+        {/* <div className="fixed bottom-0 w-full mt-20">
+        <Footer/>
+      </div> */}
       </AuthProvider>
       </body>
     </html>

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 // import MenuSection from "@/components/foodSection/MenuSection";
-import Footer from "@/components/home/Footer";
 import Hero from "@/components/home/Hero";
 // import Reviews from "@/components/home/Review";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -42,9 +41,9 @@ export default function Home() {
           {/* <Reviews /> */}
           <ContactForm/>
         </div>
-        <div className="mt-10">
+        {/* <div className="mt-10">
           <Footer />
-        </div>
+        </div> */}
       </div>
     </ProtectedRoute>
   );
