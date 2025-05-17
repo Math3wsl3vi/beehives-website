@@ -4,15 +4,15 @@ import React from 'react'
 
 const ServicesPage = () => {
   return (
-    <div>
+    <div className='font-poppins'>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-yellow-50 to-orange-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Discover Our Beehives & Honey
+            Discover Our Services
           </h1>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Shop premium beehives, beekeeping gear, and pure honey crafted with care for sustainability and quality.
+          Ensuring beekeeper safety during honey harvesting through modern equipment, calm-extraction methods, and hive designs that keep both bees and beekeepers protected.
           </p>
           <Link
             href="#products"
