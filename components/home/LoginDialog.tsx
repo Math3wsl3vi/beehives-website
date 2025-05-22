@@ -24,7 +24,7 @@ export default function LoginDialog({
             <Button variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button asChild>
+            <Button asChild className="bg-orange-1">
               <Link href="/login">Login</Link>
             </Button>
           </div>

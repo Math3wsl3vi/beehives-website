@@ -83,7 +83,7 @@ const Navbar = () => {
   const handleLogout = () => {
     auth.signOut();
     localStorage.removeItem("user");
-    router.push("/login");
+    router.push("/");
     setSidebarOpen(false);
   };
 
