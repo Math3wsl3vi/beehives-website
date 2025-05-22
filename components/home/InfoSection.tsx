@@ -61,22 +61,40 @@ const InfoSection = () => {
 
           {/* Column 2: Video Section */}
           <div className="w-full mb-8">
-            <h3 className="text-2xl font-semibold mb-2 text-yellow-700">
+            <h3 className="text-2xl font-semibold mb-10 text-yellow-700">
               Watch: Basics of Beekeeping
             </h3>
-            <div
+           <div className="flex gap-10 flex-col">
+             <div
               className="relative w-full"
               style={{ paddingBottom: "56.25%" }}
             >
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-lg shadow-md"
-                src="https://www.youtube.com/embed/jeFxOUZreXI?start=575"
+                src="https://www.youtube.com/embed/i1VYPO5zEhs?si=pYW6URWfAQ5sGjN_"
                 title="Beekeeping Basics"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
+             <h3 className="text-2xl font-semibold mb-2 text-yellow-700">
+              Watch: Beekeeping Success Story
+            </h3>
+              <div
+              className="relative w-full"
+              style={{ paddingBottom: "56.25%" }}
+            >
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-md"
+                src="https://www.youtube.com/embed/bUqP02l_eQk?si=b-yN-A11wqcX5kD-"
+                title="Beekeeping Basics"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+           </div>
           </div>
         </div>
       </div>
