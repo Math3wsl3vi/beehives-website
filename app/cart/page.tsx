@@ -11,6 +11,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import JsBarcode from "jsbarcode";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Link from "next/link";
+import ProtectedCartRoute from "@/components/ProtectedRoute";
 
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -267,6 +268,7 @@ const CartPage = () => {
   };
 
   return (
+    <ProtectedCartRoute>
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-poppins">
       {cart.length === 0 ? (
         <section className="text-center py-12">
@@ -443,6 +445,7 @@ const CartPage = () => {
         </section>
       )}
     </div>
+    </ProtectedCartRoute>
   );
 };
 

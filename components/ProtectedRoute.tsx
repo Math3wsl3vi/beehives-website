@@ -5,18 +5,19 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Loader from "./Loader";
 
-export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+export default function ProtectedCartRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/login");
+      // You might want to store the current URL to redirect back after login
+      router.push(`/login?redirect=${encodeURIComponent('/cart')}`);
     }
   }, [user, loading, router]);
 
-  if (loading) return <div className="text-center text-gray-500 mt-20"><Loader/></div>; // Prevent flickering
-  if (!user) return null; // Prevents UI from rendering before redirect
+  if (loading) return <div className="text-center text-gray-500 mt-20"><Loader/></div>;
+  if (!user) return null;
 
   return <>{children}</>;
 }

@@ -104,7 +104,7 @@ const ProductsSection = () => {
                   <p className="text-gray-500">UNITS LEFT : {product.quantity}</p>
                   <Link href={`/product/${product.id}`}>
                     <Button className="mt-4 w-full bg-yellow-500 hover:bg-yellow-600 text-white">
-                      Buy Now
+                      Check Out
                     </Button>
                   </Link>
                 </div>

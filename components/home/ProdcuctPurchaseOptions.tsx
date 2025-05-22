@@ -14,12 +14,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import jsPDF from "jspdf";
 import JsBarcode from "jsbarcode";
 import { Product } from "@/types/product";
+import Link from "next/link";
 
 interface ProductPurchaseOptionsProps {
   product: Product;
@@ -33,7 +34,8 @@ const ProductPurchaseOptions: React.FC<ProductPurchaseOptionsProps> = ({ product
   const [polling, setPolling] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
-  const { addToCart } = useCartStore(); // Removed unused 'cart'
+  const { addToCart } = useCartStore(); 
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
 
   const handleAddToCart = () => {
     addToCart({
@@ -50,6 +52,7 @@ const ProductPurchaseOptions: React.FC<ProductPurchaseOptionsProps> = ({ product
 
   const handleBuyNow = () => {
     if (!user) {
+      setLoginDialogOpen(true);
       toast({ description: "Please log in to proceed with checkout." });
       return;
     }
@@ -332,6 +335,27 @@ const ProductPurchaseOptions: React.FC<ProductPurchaseOptionsProps> = ({ product
         </Button>
       </div>
 
+       {/* Login Dialog */}
+      <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Login Required</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p>You need to login to proceed with your purchase.</p>
+            <div className="flex justify-end space-x-2">
+              <Button variant="outline" onClick={() => setLoginDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button asChild>
+                <Link href={`/login?redirect=/product/${product.id}`}>Login</Link>
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+        </Dialog>
+
+      {/* checkout dialog */}
       <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
         <DialogContent className="p-5">
           <DialogTitle>{isPaymentSuccessful ? "Payment Successful" : "Checkout"}</DialogTitle>

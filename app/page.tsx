@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import Hero from "@/components/home/Hero";
-import ProtectedRoute from "@/components/ProtectedRoute";
 import ProductsSection from "@/components/home/ProductsSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import HoneySection from "@/components/home/HoneySection";
@@ -19,7 +18,6 @@ export default function Home() {
 
 
   return (
-    <ProtectedRoute>
       <div className="flex flex-col relative h-screen w-full font-poppins">
         {/* navbar */}
         {/* main page */}
@@ -43,6 +41,5 @@ export default function Home() {
           <Footer />
         </div>
       </div>
-    </ProtectedRoute>
   );
 }
