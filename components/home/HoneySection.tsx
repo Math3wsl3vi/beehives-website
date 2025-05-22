@@ -99,7 +99,7 @@ const HoneySection = () => {
                   />
                 </div>
                 <div className="p-4 text-left">
-                  <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 capitalize">{product.name}</h3>
                   <p className="text-yellow-600 font-medium mt-1">Ksh {product.price}</p>
                   <p className="text-gray-500">UNITS LEFT : {product.quantity}</p>
                   <Link href={`/product/${product.id}`}>
