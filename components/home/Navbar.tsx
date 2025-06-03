@@ -145,6 +145,9 @@ const Navbar = () => {
           <Link href="/services-page" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
             Services
           </Link>
+           <Link href="/login" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
+            Login
+          </Link>
           <Link href="/contact" className="py-2 text-lg border-b" onClick={() => setSidebarOpen(false)}>
             Contact
           </Link>

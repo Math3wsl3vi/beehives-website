@@ -1,11 +1,4 @@
-"use client";
-
-import React from "react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-
-const Services = () => {
-  const services = [
+ const services = [
     {
        id: "Hive-Installation",
       title: "Hive Installation",
@@ -50,28 +43,41 @@ const Services = () => {
     },
   ];
 
+
+export async function generateStaticParams() {
+  return services.map((service) => ({
+    serviceId: service.id,
+  }));
+}
+
+const ServiceDetailPage = ({ params }: { params: { serviceId: string } }) => {
+  const service = services.find((s) => s.id === params.serviceId);
+  console.log(service)
+
+  if (!service) {
+    return <div>Service not found</div>;
+  }
+
   return (
-    <div className="max-w-7xl mx-auto pb-4 p-6">
-      <h1 className="text-3xl font-bold text-yellow-700 mb-6">Our Services</h1>
-      <div className="grid gap-6 md:grid-cols-2">
-        {services.map((service, index) => (
-          <div
-            key={index}
-            className="border p-4 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <div className="text-4xl mb-2">{service.icon}</div>
-            <h2 className="text-xl font-semibold mb-2">{service.title}</h2>
-            <p className="text-gray-700">{service.description}</p>
-           <div className="flex justify-end mt-5">
-           <Link href={`/services-item/${service.id}`}>
-                <Button className="bg-orange-1">Learn More</Button>
-              </Link>
-           </div>
+    <div className="max-w-7xl mx-auto py-8 px-4">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-6xl mb-6">{service.icon}</div>
+        <h1 className="text-4xl font-bold text-yellow-700 mb-6">
+          {service.title}
+        </h1>
+        <div className="prose max-w-none">
+          <p className="text-lg mb-6">{service.description}</p>
+          
+          {/* Add more detailed content here */}
+          <div className="mt-8 bg-yellow-50 p-6 rounded-lg">
+            <h2 className="text-2xl font-semibold mb-4">Service Details</h2>
+            <p>More detailed information about {service.title} would go here.</p>
+            <p>You could add pricing, process details, FAQs, etc.</p>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Services;
+export default ServiceDetailPage;
