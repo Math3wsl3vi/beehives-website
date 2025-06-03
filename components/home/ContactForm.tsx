@@ -6,6 +6,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/configs/firebaseConfig";
 
 const ContactForm = () => {
     const { toast } = useToast()
@@ -15,17 +17,38 @@ const ContactForm = () => {
     subject: "",
     message: "",
   });
+  const [loading, setLoading ] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Add your email service/Firebase backend logic here
-    toast({description:"Thank you for reaching out! We'll get back to you shortly."});
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setLoading(true);
+
+    try {
+      await addDoc(collection(db, "contact"), {
+        ...form,
+        createdAt: serverTimestamp(),
+      });
+
+      toast({
+        description: "Thank you for reaching out! We'll get back to you shortly.",
+      });
+
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast({
+        variant: "destructive",
+        description: "Something went wrong. Please try again later.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <section className="bg-white py-10 px-6 md:px-20 text-gray-800">
@@ -83,7 +106,7 @@ const ContactForm = () => {
             type="submit"
             className="bg-orange-1 text-white font-semibold py-2 px-6 rounded-lg hover:bg-yellow-700 transition duration-300"
           >
-            Send Message
+            {loading ? "Sending..." : "Send Message"}
           </Button>
         </form>
       </div>
